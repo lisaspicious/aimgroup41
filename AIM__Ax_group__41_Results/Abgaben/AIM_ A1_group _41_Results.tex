@@ -44,6 +44,36 @@
 
 \exercise{Hive}
 \subexercise{}
+
+The following HiveQL query was used to determine the five most frequently drawn individual lottery numbers.
+
+\begin{verbatim}
+SELECT number, COUNT(*) AS occurrences
+FROM (
+    SELECT explode(split(lotterynumbers,' ')) AS number
+    FROM lottery
+) t
+GROUP BY number
+ORDER BY occurrences DESC
+LIMIT 5;
+\end{verbatim}
+
+The query splits the \texttt{lotterynumbers} column into individual numbers, creates one row per number using \texttt{explode}, counts the occurrences of each number, sorts the result in descending order and returns the top five numbers.
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+Number & Occurrences \\
+\hline
+02 & 117 \\
+20 & 113 \\
+35 & 113 \\
+25 & 112 \\
+51 & 111 \\
+\hline
+\end{tabular}
+\end{center}
+
 \subexercise{}
 
 \end{document}
