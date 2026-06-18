@@ -76,4 +76,40 @@ Number & Occurrences \\
 
 \subexercise{}
 
+To combine multiple datasets, the taxi and fuel datasets were joined using the date attributes. The taxi dataset contains information about trip distances and earnings, while the fuel dataset contains daily fuel prices.
+
+The following HiveQL query was used:
+
+\begin{verbatim}
+SELECT
+t.dropoff_date,
+SUM(t.distance) AS total_distance,
+SUM(t.earnings) AS total_earnings,
+f.nystate_price
+FROM taxi t
+JOIN fuel f
+ON t.dropoff_date = f.businessday
+GROUP BY t.dropoff_date, f.nystate_price
+ORDER BY t.dropoff_date;
+\end{verbatim}
+
+The query joins both datasets on their corresponding dates. Afterwards, the total travelled distance and total earnings are calculated for each day and enriched with the fuel price information from the fuel dataset.
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+Date & Total Distance & Total Earnings & NY State Fuel Price \\
+\hline
+2015-06-01 & 137223.43 & 1409103.74 & 2.87 \\
+2015-06-02 & 131085.87 & 1366296.25 & 2.84 \\
+2015-06-03 & 139624.75 & 1378500.47 & 2.78 \\
+2015-06-04 & 152275.73 & 1472577.35 & 2.83 \\
+2015-06-05 & 180112.00 & 1741694.44 & 2.88 \\
+\hline
+\end{tabular}
+\end{center}
+
+The first five rows of the resulting joined dataset are shown above. The results show the aggregated taxi activity for each day together with the corresponding fuel price. This demonstrates how Hive can be used to perform joins and aggregations across multiple large datasets.
+
 \end{document}
+
