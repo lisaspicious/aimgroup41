@@ -114,7 +114,7 @@
 75	9
 \end{lstlisting}
 
-
+\newpage
 \subexercise{Descending Order by Number of Occurrences of Lottery Numbers}
 
 \begin{lstlisting}
@@ -195,6 +195,7 @@
 75	9
 \end{lstlisting}
 
+\newpage
 \exercise{MapReduce Programming 2: Joins}
 \subexercise{Explanation of Generic Reduce-Side Join}
 
@@ -202,12 +203,14 @@
     \includegraphics[width = \textwidth]{figures/2.1.png}
 \end{figure}
 
+\newpage
 \subexercise{Taxi Aggregate}
 
 \begin{figure}[h!]
     \includegraphics[width = \textwidth]{figures/2.2.png}
 \end{figure}
 
+\newpage
 \subexercise{Taxi Join}
 
 \begin{figure}[h!]
@@ -218,6 +221,7 @@ There is no entry for \texttt{2015-06-08} because a standard reduce-side join ac
 It requires the date to exist in both datasets simultaneously (\texttt{dropoff\_date} from the taxi dataset and \texttt{businessday} from the fuel dataset) to calculate a result.
 If either of the two datasets lacks records for June 8, 2015 (e.g., no taxi trips were recorded or no fuel price entry was logged for that specific date), the join condition fails, and the day is completely omitted from the final output.
 
+\newpage
 \exercise{Hive}
 \subexercise{}
 
@@ -244,7 +248,7 @@ The query splits the \texttt{lotterynumbers} column into individual numbers, cre
 \hline
 Number & Occurrences \\
 \hline
-02 & 152 \\
+2 & 152 \\
 9 & 144 \\
 7 & 141 \\
 10 & 140 \\
@@ -253,6 +257,7 @@ Number & Occurrences \\
 \end{tabular}
 \end{center}
 
+\newpage
 \subexercise{}
 
 To estimate the theoretical gross margin of taxi operations, the aggregated taxi data was joined with the fuel dataset. Following the assumption from Task 2.3, a fuel consumption of 21.3 miles per gallon was used and the Buffalo fuel price was applied.
