@@ -76,40 +76,48 @@ Number & Occurrences \\
 
 \subexercise{}
 
-To combine multiple datasets, the taxi and fuel datasets were joined using the date attributes. The taxi dataset contains information about trip distances and earnings, while the fuel dataset contains daily fuel prices.
+To estimate the theoretical gross margin of taxi operations, the aggregated taxi data was joined with the fuel dataset. Following the assumption from Task 2.3, a fuel consumption of 21.3 miles per gallon was used and the Buffalo fuel price was applied.
 
 The following HiveQL query was used:
 
 \begin{verbatim}
 SELECT
-t.dropoff_date,
-SUM(t.distance) AS total_distance,
-SUM(t.earnings) AS total_earnings,
-f.nystate_price
-FROM taxi t
+    t.dropoff_date,
+    ((t.total_earnings -
+    ((f.buffalo_price * t.total_distance) / 21.3)))
+    AS gross_margin_buffalo
+FROM (
+    SELECT
+        dropoff_date,
+        SUM(distance) AS total_distance,
+        SUM(earnings) AS total_earnings
+    FROM taxi
+    GROUP BY dropoff_date
+) t
 JOIN fuel f
 ON t.dropoff_date = f.businessday
-GROUP BY t.dropoff_date, f.nystate_price
 ORDER BY t.dropoff_date;
 \end{verbatim}
 
-The query joins both datasets on their corresponding dates. Afterwards, the total travelled distance and total earnings are calculated for each day and enriched with the fuel price information from the fuel dataset.
+The query first aggregates the taxi data by day and then joins it with the fuel dataset using the corresponding date. The theoretical gross margin is calculated as the total earnings minus the estimated fuel costs based on the Buffalo fuel price and a fuel efficiency of 21.3 miles per gallon.
 
 \begin{center}
-\begin{tabular}{|c|c|c|c|}
+\begin{tabular}{|c|c|}
 \hline
-Date & Total Distance & Total Earnings & NY State Fuel Price \\
+Date & Gross Margin (Buffalo) \\
 \hline
-2015-06-01 & 137223.43 & 1409103.74 & 2.87 \\
-2015-06-02 & 131085.87 & 1366296.25 & 2.84 \\
-2015-06-03 & 139624.75 & 1378500.47 & 2.78 \\
-2015-06-04 & 152275.73 & 1472577.35 & 2.83 \\
-2015-06-05 & 180112.00 & 1741694.44 & 2.88 \\
+2015-06-01 & 1391258.25 \\
+2015-06-02 & 1349495.10 \\
+2015-06-03 & 1359883.84 \\
+2015-06-04 & 1452988.83 \\
+2015-06-05 & 1718017.75 \\
+2015-06-06 & 1976291.25 \\
+2015-06-07 & 1768727.39 \\
 \hline
 \end{tabular}
 \end{center}
 
-The first five rows of the resulting joined dataset are shown above. The results show the aggregated taxi activity for each day together with the corresponding fuel price. This demonstrates how Hive can be used to perform joins and aggregations across multiple large datasets.
+The results show the theoretical gross margin for each day after accounting for estimated fuel costs. This demonstrates how Hive can be used to combine multiple datasets and perform analytical calculations on large-scale data.
 
 \end{document}
 
