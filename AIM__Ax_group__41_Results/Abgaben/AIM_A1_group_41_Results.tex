@@ -14,8 +14,8 @@
 % Mit den \include und \input Befehlen können Dateien eingebunden werden:
 % \include: Fügt einen Seitenumbruch nach dem Text ein
 % \input: Fügt KEINEN Seitenumbruch nach dem Text ein
-\input{styles/Packages.tex}
-\input{styles/FormatAndHeader.tex}
+\input{../styles/Packages.tex}
+\input{../styles/FormatAndHeader.tex}
 
 % Counter für das Blatt und die Aufgabennummer.
 % Ersetze die Nummer des Übungsblattes und die Nummer der Aufgabe
@@ -34,13 +34,189 @@
 \begin{document}
 
 \exercise{MapReduce Programming 1: Basics}
-\subexercise{}
-\subexercise{}
+\subexercise{Number of Occurrences of Lottery Numbers}
+
+\begin{lstlisting}
+1	117
+2	152
+3	139
+4	134
+5	131
+6	124
+7	141
+8	127
+9	144
+10	140
+11	135
+12	138
+13	130
+14	138
+15	137
+16	111
+17	124
+18	115
+19	112
+20	135
+21	123
+22	116
+23	105
+24	124
+25	133
+26	104
+27	117
+28	109
+29	125
+30	109
+31	127
+32	99
+33	104
+34	106
+35	136
+36	135
+37	97
+38	129
+39	126
+40	118
+41	108
+42	120
+43	103
+44	117
+45	122
+46	124
+47	81
+48	110
+49	88
+50	106
+51	111
+52	97
+53	102
+54	81
+55	74
+56	89
+57	14
+58	19
+59	15
+60	12
+61	13
+62	16
+63	15
+64	14
+65	12
+66	15
+67	10
+68	19
+69	13
+70	13
+71	13
+72	13
+73	13
+74	17
+75	9
+\end{lstlisting}
+
+
+\subexercise{Descending Order by Number of Occurrences of Lottery Numbers}
+
+\begin{lstlisting}
+2	152
+9	144
+7	141
+10	140
+3	139
+12	138
+14	138
+15	137
+35	136
+11	135
+20	135
+36	135
+4	134
+25	133
+5	131
+13	130
+38	129
+8	127
+31	127
+39	126
+29	125
+6	124
+17	124
+24	124
+46	124
+21	123
+45	122
+42	120
+40	118
+1	117
+27	117
+44	117
+22	116
+18	115
+19	112
+16	111
+51	111
+48	110
+28	109
+30	109
+41	108
+34	106
+50	106
+23	105
+26	104
+33	104
+43	103
+53	102
+32	99
+37	97
+52	97
+56	89
+49	88
+47	81
+54	81
+55	74
+58	19
+68	19
+74	17
+62	16
+59	15
+63	15
+66	15
+57	14
+64	14
+61	13
+69	13
+70	13
+71	13
+72	13
+73	13
+60	12
+65	12
+67	10
+75	9
+\end{lstlisting}
 
 \exercise{MapReduce Programming 2: Joins}
-\subexercise{}
-\subexercise{}
-\subexercise{}
+\subexercise{Explanation of Generic Reduce-Side Join}
+
+\begin{figure}[h!]
+    \includegraphics[width = \textwidth]{figures/2.1.png}
+\end{figure}
+
+\subexercise{Taxi Aggregate}
+
+\begin{figure}[h!]
+    \includegraphics[width = \textwidth]{figures/2.2.png}
+\end{figure}
+
+\subexercise{Taxi Join}
+
+\begin{figure}[h!]
+    \includegraphics[width = \textwidth]{figures/2.3.png}
+\end{figure}
+
+There is no entry for \texttt{2015-06-08} because a standard reduce-side join acts as an inner join.
+It requires the date to exist in both datasets simultaneously (\texttt{dropoff\_date} from the taxi dataset and \texttt{businessday} from the fuel dataset) to calculate a result.
+If either of the two datasets lacks records for June 8, 2015 (e.g., no taxi trips were recorded or no fuel price entry was logged for that specific date), the join condition fails, and the day is completely omitted from the final output.
 
 \exercise{Hive}
 \subexercise{}
