@@ -224,12 +224,15 @@ If either of the two datasets lacks records for June 8, 2015 (e.g., no taxi trip
 The following HiveQL query was used to determine the five most frequently drawn individual lottery numbers.
 
 \begin{verbatim}
-SELECT number, COUNT(*) AS occurrences
+SELECT CAST(num AS int) AS number, COUNT(*) AS occurrences
 FROM (
-    SELECT explode(split(lotterynumbers,' ')) AS number
-    FROM lottery
+    -- Get the space-separated numbers
+    SELECT explode(split(lotterynumbers, ' ')) AS num FROM lottery
+    UNION ALL
+    -- Combine them with the extra number column as string
+    SELECT CAST(meganumber AS STRING) AS num FROM lottery 
 ) t
-GROUP BY number
+GROUP BY CAST(num AS INT) --cast to int to avoid "02" and "2" differences
 ORDER BY occurrences DESC
 LIMIT 5;
 \end{verbatim}
@@ -241,11 +244,11 @@ The query splits the \texttt{lotterynumbers} column into individual numbers, cre
 \hline
 Number & Occurrences \\
 \hline
-02 & 117 \\
-20 & 113 \\
-35 & 113 \\
-25 & 112 \\
-51 & 111 \\
+02 & 152 \\
+9 & 144 \\
+7 & 141 \\
+10 & 140 \\
+3 & 139 \\
 \hline
 \end{tabular}
 \end{center}
