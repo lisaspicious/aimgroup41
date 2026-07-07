@@ -33,7 +33,39 @@
 
 \begin{document}
 
-\exercise{MapReduce Programming 1: Basics}
-\subexercise{Number of Occurrences of Lottery Numbers}
+\exercise{XML Schema}
+\subexercise{}
+A well-formed XML document must follow these two rules: 
+\begin{itemize}
+    \item First, it has to have only one top-level element. 
+    \item Second, is has to be nested properly. Meaning for example every starttag <tag> has to have an matching closing tag <$\setminus$tag>.
+\end{itemize}
+In this case the element has just one top-level element <tns:Orders>. It is also properly nested, as every tag has a matching closing tag.
+
+\subexercise{}
+\begin{itemize}
+    \item Line 18: The DeliveryAddress has the type tAddress, which states, that the SteerNumber has to be called seperately.
+    \item Line 41: The BillingAddress also has the type tAddress, so it is required to have an addressID.
+    \item Line 44: The integer for an tAddress type has to have exactely five numbers between 0 and 9. This one just has four.
+    \item TODO
+\end{itemize}
+
+\subexercise{}
+    No, one of the criteria for a document to be valid is, that it is well-formed.
+
+\exercise{XQuery}
+\subexercise{}
+\subexercise{}
+\subexercise{}
+\subexercise{}
+
+\exercise{DTD and XML Schema}
+\subexercise{}
+\subexercise{}
+\subexercise{}
+\begin{itemize}
+    \item One advantage is, that with a XML-schema, there is a bigger differenciation between simple data types. In DTD you only have #PCDATA, while you have integer, strings, dates, ... in a XML-schema.
+    \item Another advantage would be the wider range for an XML-schema to have more complex structures due to things like minOccurs, maxOccurs, ...
+\end{itemize}
 
 \end{document}
