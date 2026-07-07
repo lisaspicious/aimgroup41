@@ -1,0 +1,39 @@
+%tel% LaTeX Template für Abgaben an der Universität Stuttgart
+% Autor: Sandro Speth
+% Bei Fragen: Sandro.Speth@studi.informatik.uni-stuttgart.de
+%-----------------------------------------------------------
+% Hauptmodul des Templates: Hier können andere Dateien eingebunden werden
+% oder Inhalte direkt rein geschrieben werden.
+% Kompiliere dieses Modul um eine PDF zu erzeugen.
+
+% Dokumentenart. Ersetze 12pt, falls die Schriftgröße anzupassen ist.
+\documentclass[12pt,ngerman]{scrartcl}
+\usepackage{superiors}
+\usepackage{amsmath}
+% Einbinden der Pakete, des Headers und der Formatierung.
+% Mit den \include und \input Befehlen können Dateien eingebunden werden:
+% \include: Fügt einen Seitenumbruch nach dem Text ein
+% \input: Fügt KEINEN Seitenumbruch nach dem Text ein
+\input{../styles/Packages.tex}
+\input{../styles/FormatAndHeader.tex}
+
+% Counter für das Blatt und die Aufgabennummer.
+% Ersetze die Nummer des Übungsblattes und die Nummer der Aufgabe
+% den Anforderungen entsprechend.
+% Definiert werden die Counter in FormatAndHeader.tex
+% Beachte:
+% \setcounter{countername}{number}: Legt den Wert des Counters fest
+% \stepcounter{countername}: Erhöht den Wert des Counters um 1.
+\setcounter{sheetnr}{1} % Nummer des Übungsblattes
+\setcounter{exnum}{0} % Nummer der Aufgabe
+
+\def\domsum{\sum_{z\in\text{Dom}(Z)}}
+% Beginn des eigentlichen Dokuments
+
+
+\begin{document}
+
+\exercise{MapReduce Programming 1: Basics}
+\subexercise{Number of Occurrences of Lottery Numbers}
+
+\end{document}
