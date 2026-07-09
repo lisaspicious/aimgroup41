@@ -24,7 +24,7 @@
 % Beachte:
 % \setcounter{countername}{number}: Legt den Wert des Counters fest
 % \stepcounter{countername}: Erhöht den Wert des Counters um 1.
-\setcounter{sheetnr}{1} % Nummer des Übungsblattes
+\setcounter{sheetnr}{2} % Nummer des Übungsblattes
 \setcounter{exnum}{0} % Nummer der Aufgabe
 
 \def\domsum{\sum_{z\in\text{Dom}(Z)}}
@@ -61,15 +61,15 @@ In this case the element has just one top-level element <tns:Orders>. It is also
 
 \exercise{DTD and XML Schema}
 \subexercise{}
-    \lstinputlisting[language=Xml]{machines.xml}
-    There are some requirements, that a DTD-document can't fullfill:
-    \begin{itemize}
+\lstinputlisting[language=Xml]{machines.xml}
+There are some requirements, that a DTD-document can't fullfill:
+\begin{itemize}
     \item A machine-number must have exactly 5 characters. The DTD-document can't restrict the length of the data.
     \item A machine-temperature must contain a floating point number. The DTD-document can't restrict text to floating point numbers.
 \end{itemize}
 
 \subexercise{}
-
+\lstinputlisting[language=Xml]{machines.xsd}
 
 \subexercise{}
 \begin{itemize}

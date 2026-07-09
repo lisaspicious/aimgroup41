@@ -5,7 +5,8 @@
     <!ATTLIST machine
         machine-number  ID  #REQUIRED>
     <!ELEMENT incidents (incident+)>
-    <!ELEMENT incident (incident-message, incident-code, incident-date, machine-temperature?)>
+    <!ELEMENT incident (incident-message, incident-code, 
+        incident-date, machine-temperature?)>
     <!ELEMENT machine-name  (#PCDATA)>
     <!ELEMENT maintenance-engineer  (#PCDATA)>
     <!ELEMENT incident-message  (#PCDATA)>
