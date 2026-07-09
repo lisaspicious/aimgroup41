@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+
+    <xs:element name="machines">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="machine" type="machineType" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+        <xs:unique name="uniqueMachineNumber">
+            <xs:selector xpath="machine"/>
+            <xs:field xpath="@machine-number"/>
+        </xs:unique>
+    </xs:element>
+
+    <xs:complexType name="machineType">
+        <xs:sequence>
+            <xs:element name="machine-name" type="xs:string"/>
+            <xs:element name="maintenance-engineer" type="xs:string"/>
+            <xs:element name="incidents" type="incidentsType"/>
+        </xs:sequence>
+        <xs:attribute name="machine-number" type="machineNumberType" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="incidentsType">
+        <xs:sequence>
+            <xs:element name="incident" type="incidentType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="incidentType">
+        <xs:sequence>
+            <xs:element name="incident-message" type="xs:string"/>
+            <xs:element name="incident-code" type="xs:string"/>
+            <xs:element name="incident-date" type="xs:date"/>
+            <xs:element name="machine-temperature" type="xs:float" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- machine-number: exactly 5 characters, unique via xs:unique above -->
+    <xs:simpleType name="machineNumberType">
+        <xs:restriction base="xs:string">
+            <xs:length value="5"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+</xs:schema>
