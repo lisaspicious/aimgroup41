@@ -38,7 +38,7 @@
 A well-formed XML document must follow these two rules: 
 \begin{itemize}
     \item First, it has to have only one top-level element. 
-    \item Second, is has to be nested properly. Meaning for example every starttag <tag> has to have an matching closing tag <$\setminus$tag>.
+    \item Second, is has to be nested properly. Meaning for example every starttag <tag> has to have and matching closing tag </tag> and different Tags must not overlap (e.g. not allowed: <a><b></a></b>).
 \end{itemize}
 In this case the element has just one top-level element <tns:Orders>. It is also properly nested, as every tag has a matching closing tag.
 
@@ -73,7 +73,7 @@ In this case the element has just one top-level element <tns:Orders>. It is also
 
 \subexercise{}
 \begin{itemize}
-    \item One advantage is, that with a XML-schema, there is a bigger differenciation between simple data types. In DTD you only have #PCDATA, while you have integer, strings, dates, ... in a XML-schema.
+    \item One advantage is, that with a XML-schema, there is a bigger differenciation between simple data types. In DTD you only have \#PCDATA, while you have integer, strings, dates, ... in a XML-schema.
     \item Another advantage would be the wider range for an XML-schema to have more complex structures due to things like minOccurs, maxOccurs, ...
 \end{itemize}
 
