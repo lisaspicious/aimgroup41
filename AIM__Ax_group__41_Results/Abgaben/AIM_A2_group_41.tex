@@ -61,7 +61,16 @@ In this case the element has just one top-level element <tns:Orders>. It is also
 
 \exercise{DTD and XML Schema}
 \subexercise{}
+    \lstinputlisting[language=Xml]{machines.xml}
+    There are some requirements, that a DTD-document can't fullfill:
+    \begin{itemize}
+    \item A machine-number must have exactly 5 characters. The DTD-document can't restrict the length of the data.
+    \item A machine-temperature must contain a floating point number. The DTD-document can't restrict text to floating point numbers.
+\end{itemize}
+
 \subexercise{}
+
+
 \subexercise{}
 \begin{itemize}
     \item One advantage is, that with a XML-schema, there is a bigger differenciation between simple data types. In DTD you only have #PCDATA, while you have integer, strings, dates, ... in a XML-schema.
