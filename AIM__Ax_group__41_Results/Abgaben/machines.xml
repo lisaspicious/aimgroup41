@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE machines [
     <!ELEMENT machines (machine)+>
-    <!ELEMENT machine (machine-name, maintenance-engineer, incident)>
+    <!ELEMENT machine (machine-name, maintenance-engineer, incidents)>
     <!ATTLIST machine
         machine-number  ID  #REQUIRED>
-    <!ELEMENT incidents (incident)+>
-    <!ELEMENT incident (incident-message, incident-code, incident-date, machine-temperature)?>
+    <!ELEMENT incidents (incident+)>
+    <!ELEMENT incident (incident-message, incident-code, incident-date, machine-temperature?)>
     <!ELEMENT machine-name  (#PCDATA)>
     <!ELEMENT maintenance-engineer  (#PCDATA)>
     <!ELEMENT incident-message  (#PCDATA)>
