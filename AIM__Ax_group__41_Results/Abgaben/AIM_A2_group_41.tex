@@ -54,10 +54,41 @@ In this case the element has just one top-level element <tns:Orders>. It is also
     No, one of the criteria for a document to be valid is, that it is well-formed.
 
 \exercise{XQuery}
+
 \subexercise{}
+{\footnotesize
+\begin{lstlisting}
+for $hotel in doc("hotels.xml")//Hotel
+let $resCount := count($hotel//Reservation)
+return concat($hotel/Name, " ", $hotel/Address/TownName, " ", $resCount)
+\end{lstlisting}
+
 \subexercise{}
+\begin{lstlisting}
+for $guest in doc("hotels.xml")//Guest
+for $res in doc("hotels.xml")//Reservation[@guestNumber = $guest/@guestNumber]
+return concat($guest/Name, " - Room: ", $res/@roomNumber, 
+              ", Arrival: ", $res/Arrival)
+\end{lstlisting}
+
 \subexercise{}
+\begin{lstlisting}
+for $hotel in doc("hotels.xml")//Hotel
+let $shortNames := $hotel//Guest/Name[string-length(.) < 11]
+where exists($shortNames)
+return concat($hotel/@hotelNumber, " ", string-join($shortNames, ", "))
+\end{lstlisting}
+
 \subexercise{}
+\begin{lstlisting}
+for $res in doc("hotels.xml")//Reservation
+where $res/RoomType/BasicRoom[MiniBar = 'false']
+for $guest in doc("hotels.xml")//Guest[@guestNumber = $res/@guestNumber]
+order by $guest/Address/StreetAndHouseNumber ascending
+return concat($guest/@guestNumber, " ", 
+              $guest/Address/StreetAndHouseNumber)
+\end{lstlisting}
+}
 
 \exercise{DTD and XML Schema}
 \subexercise{}
