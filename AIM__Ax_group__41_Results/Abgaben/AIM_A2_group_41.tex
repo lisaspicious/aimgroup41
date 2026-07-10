@@ -60,15 +60,17 @@ In this case the element has just one top-level element <tns:Orders>. It is also
 \begin{lstlisting}
 for $hotel in doc("hotels.xml")//Hotel
 let $resCount := count($hotel//Reservation)
-return concat($hotel/Name, " ", $hotel/Address/TownName, " ", $resCount)
+return 
+  <output>
+    concat($hotel/Name, " ", $hotel/Address/TownName, " ", $resCount)
+  </output>
 \end{lstlisting}
 
 \subexercise{}
 \begin{lstlisting}
 for $guest in doc("hotels.xml")//Guest
 for $res in doc("hotels.xml")//Reservation[@guestNumber = $guest/@guestNumber]
-return concat($guest/Name, " - Room: ", $res/@roomNumber, 
-              ", Arrival: ", $res/Arrival)
+return ($guest/Name/text(), $res)
 \end{lstlisting}
 
 \subexercise{}
