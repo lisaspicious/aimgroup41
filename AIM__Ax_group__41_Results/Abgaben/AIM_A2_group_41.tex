@@ -75,12 +75,10 @@ return
 
 \subexercise{}
 \begin{lstlisting}
-for $guest in doc("hotels.xml")//Guest
-for $res in doc("hotels.xml")//Reservation[@guestNumber = $guest/@guestNumber]
-return 
-  <output>
-    {($guest/Name/text(), $res)}
-  </output>
+for $hotel in doc("hotels.xml")//Hotel,
+    $guest in $hotel/Guests/Guest,
+    $res in $hotel//Reservation[@guestNumber = $guest/@guestNumber]
+return <output>{ $guest/Name/text() } { $res }</output>
 \end{lstlisting}
 
 \subexercise{}
@@ -96,11 +94,9 @@ return
 
 \subexercise{}
 \begin{lstlisting}
-let $validGuestNumbers := distinct-values(
-    doc("hotels.xml")//Reservation[RoomType/BasicRoom[MiniBar = 'false']]/@guestNumber
-)
-for $id in $validGuestNumbers
-let $guest := (doc("hotels.xml")//Guest[@guestNumber = $id])[1] (:assuming unique IDs:)
+for $hotel in doc("hotels.xml")//Hotel,
+    $res in $hotel//Reservation[RoomType/BasicRoom/MiniBar = "false"],
+    $guest in $hotel/Guests/Guest[@guestNumber = $res/@guestNumber]
 order by $guest/Address/StreetAndHouseNumber ascending
 return <output>{ concat($guest/@guestNumber, " ",
                         $guest/Address/StreetAndHouseNumber) }</output>
