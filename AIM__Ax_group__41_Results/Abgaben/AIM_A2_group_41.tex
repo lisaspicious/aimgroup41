@@ -61,8 +61,11 @@ In this case the document has just one top-level element \texttt{<tns:Orders>}. 
 {\footnotesize
 \begin{lstlisting}
 for $hotel in doc("hotels.xml")//Hotel
-return <output>{ concat($hotel/Name, " ", $hotel/Address/TownName, " ",
-                        count($hotel//Reservation)) }</output>
+let $resCount := count($hotel//Reservation)
+return 
+  <output>
+    {concat($hotel/Name, " ", $hotel/Address/TownName, " ", $resCount)}
+  </output>
 \end{lstlisting}
 
 \subexercise{}
@@ -75,10 +78,13 @@ return <output>{ $guest/Name/text() } { $res }</output>
 
 \subexercise{}
 \begin{lstlisting}
-for $hotel in doc("hotels.xml")//Hotel,
-    $guest in $hotel/Guests/Guest
-where string-length($guest/Name) < 11
-return <output>{ concat($hotel/@hotelNumber, " ", $guest/Name) }</output>
+for $hotel in doc("hotels.xml")//Hotel
+let $shortNames := $hotel//Guest/Name[string-length(.) < 11]
+where exists($shortNames)
+return 
+  <output>
+    {concat($hotel/@hotelNumber, " ", string-join($shortNames, ", "))}
+  </output>
 \end{lstlisting}
 
 \subexercise{}
@@ -106,7 +112,7 @@ There are some requirements, that a DTD-document can't fullfill:
 \end{itemize}
 
 \subexercise{}
-\lstinputlisting[language=Xml]{machines.xsd}
+{\footnotesize\lstinputlisting[language=Xml]{machines.xsd}}
 
 \subexercise{}
 \begin{itemize}
