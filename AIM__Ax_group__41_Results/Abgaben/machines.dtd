@@ -1,0 +1,11 @@
+<!ELEMENT machines (machine+)>
+<!ELEMENT machine (machine-name, maintenance-engineer, incidents)>
+<!ATTLIST machine machine-number ID #REQUIRED>
+<!ELEMENT machine-name (#PCDATA)>
+<!ELEMENT maintenance-engineer (#PCDATA)>
+<!ELEMENT incidents (incident+)>
+<!ELEMENT incident (incident-message, incident-code, incident-date, machine-temperature?)>
+<!ELEMENT incident-message (#PCDATA)>
+<!ELEMENT incident-code (#PCDATA)>
+<!ELEMENT incident-date (#PCDATA)>
+<!ELEMENT machine-temperature (#PCDATA)>
