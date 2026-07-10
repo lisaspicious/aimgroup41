@@ -37,17 +37,19 @@
 \subexercise{}
 A well-formed XML document must follow these two rules: 
 \begin{itemize}
-    \item First, it has to have only one top-level element. 
-    \item Second, is has to be nested properly. Meaning for example every starttag <tag> has to have and matching closing tag </tag> and different Tags must not overlap (e.g. not allowed: <a><b></a></b>).
+    \item First, it has to have exactly one top-level (root) element that contains all other elements.
+    \item Second, it has to be nested properly. This means every start tag \texttt{<tag>} must have a matching closing tag \texttt{</tag>}, and different tags must not overlap (e.g. not allowed: \texttt{<a><b></a></b>}).
 \end{itemize}
-In this case the element has just one top-level element <tns:Orders>. It is also properly nested, as every tag has a matching closing tag.
+In this case the document has just one top-level element \texttt{<tns:Orders>}. It is also properly nested, as every tag has a matching closing tag and no tags overlap. The document is therefore well-formed.
 
 \subexercise{}
 \begin{itemize}
-    \item Line 18: The DeliveryAddress has the type tAddress, which states, that the SteerNumber has to be called seperately with <StreetNumber>.
+    \item Lines 17--21: The DeliveryAddress has the type tAddress, which requires the element \texttt{<StreetNumber>}. Since the elements of an \texttt{xs:all} group have a default minOccurs of 1, StreetNumber is mandatory but missing here.
+    \item Line 26: The Quantity is 10, but the schema restricts Quantity with maxExclusive value 10, so the maximum allowed value is 9.
     \item Line 41: The BillingAddress also has the type tAddress, so it is required to have an addressID.
-    \item Line 44: The integer for an tAddress type has to have exactely five numbers between 0 and 9. This one just has four.
-    \item Line 53: The ItemID has to be unique, but the ID I000328 has already been used in line 48.
+    \item Line 44: The ZipCode of a tAddress type has to consist of exactly five digits between 0 and 9. This one has only four.
+    \item Lines 48--52: The child elements of the Item are in the wrong order. The type tOrderItem is defined as an \texttt{xs:sequence} (Name, Size, Quantity), but here Quantity appears first.
+    \item Line 53: The itemID has to be unique, but the ID I000328 has already been used in line 48.
 \end{itemize}
 
 \subexercise{}
@@ -59,36 +61,34 @@ In this case the element has just one top-level element <tns:Orders>. It is also
 {\footnotesize
 \begin{lstlisting}
 for $hotel in doc("hotels.xml")//Hotel
-let $resCount := count($hotel//Reservation)
-return 
-  <output>
-    concat($hotel/Name, " ", $hotel/Address/TownName, " ", $resCount)
-  </output>
+return <output>{ concat($hotel/Name, " ", $hotel/Address/TownName, " ",
+                        count($hotel//Reservation)) }</output>
 \end{lstlisting}
 
 \subexercise{}
 \begin{lstlisting}
-for $guest in doc("hotels.xml")//Guest
-for $res in doc("hotels.xml")//Reservation[@guestNumber = $guest/@guestNumber]
-return ($guest/Name/text(), $res)
+for $hotel in doc("hotels.xml")//Hotel,
+    $guest in $hotel/Guests/Guest,
+    $res in $hotel//Reservation[@guestNumber = $guest/@guestNumber]
+return <output>{ $guest/Name/text() } { $res }</output>
 \end{lstlisting}
 
 \subexercise{}
 \begin{lstlisting}
-for $hotel in doc("hotels.xml")//Hotel
-let $shortNames := $hotel//Guest/Name[string-length(.) < 11]
-where exists($shortNames)
-return concat($hotel/@hotelNumber, " ", string-join($shortNames, ", "))
+for $hotel in doc("hotels.xml")//Hotel,
+    $guest in $hotel/Guests/Guest
+where string-length($guest/Name) < 11
+return <output>{ concat($hotel/@hotelNumber, " ", $guest/Name) }</output>
 \end{lstlisting}
 
 \subexercise{}
 \begin{lstlisting}
-for $res in doc("hotels.xml")//Reservation
-where $res/RoomType/BasicRoom[MiniBar = 'false']
-for $guest in doc("hotels.xml")//Guest[@guestNumber = $res/@guestNumber]
+for $hotel in doc("hotels.xml")//Hotel,
+    $res in $hotel//Reservation[RoomType/BasicRoom/MiniBar = "false"],
+    $guest in $hotel/Guests/Guest[@guestNumber = $res/@guestNumber]
 order by $guest/Address/StreetAndHouseNumber ascending
-return concat($guest/@guestNumber, " ", 
-              $guest/Address/StreetAndHouseNumber)
+return <output>{ concat($guest/@guestNumber, " ",
+                        $guest/Address/StreetAndHouseNumber) }</output>
 \end{lstlisting}
 }
 
@@ -99,6 +99,7 @@ There are some requirements, that a DTD-document can't fullfill:
 \begin{itemize}
     \item A machine-number must have exactly 5 characters. The DTD-document can't restrict the length of the data.
     \item A machine-temperature must contain a floating point number. The DTD-document can't restrict text to floating point numbers.
+    \item Using the ID type to enforce uniqueness of machine-number restricts the value to a valid XML Name, which must not start with a digit. A purely numeric 5-character machine-number is therefore not expressible in a DTD. Likewise, incident-date cannot be validated as a date, only as \#PCDATA.
 \end{itemize}
 
 \subexercise{}
